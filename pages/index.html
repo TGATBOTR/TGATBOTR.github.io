@@ -9,12 +9,13 @@
 	
 		<link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<script src="/scripts/script.js"></script>
-		<script>window.onload = getAllUrlParams()</script>
 	  </head>
 
 	<body>
+		<script>document.addEventListener('DOMContentLoaded', createTableFromParamters(), false);</script>
+
 		<h1>Example <span class="label label-default">New</span></h1>
-		<table class="table table-sm">
+		<!-- <table class="table table-sm">
 			<thead>
 				<tr>
 					<th scope="col">Allergy</th>
@@ -29,6 +30,6 @@
 					<td>Vomitting</td>
 				</tr>
 			</tbody>
-		</table>
+		</table> -->
 	</body>
 </html>
