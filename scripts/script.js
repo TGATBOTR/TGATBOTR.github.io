@@ -27,7 +27,7 @@ function urlDictToObjectArray(urlDict)
 	for (let i = 0; i < keys.length; i++)
 	{
 		const object = {};
-		for (const key of keys) 
+		for (const key of keys)
 		{
 			if (i < urlDict[key].length)
 			{
@@ -46,7 +46,7 @@ function createTableFromParamters()
 	const urlDict = getUrlParamsDict();
 
 	const table = document.createElement("table");
-	table.classList = "table table-sm";
+	table.classList = "table";
 
 	const thead = createTableHeadFromUrlParams(urlDict);
 	table.appendChild(thead);
@@ -70,11 +70,9 @@ function createTableHeadFromUrlParams(urlDict)
 	for (const urlParam in urlDict)
 	{
 		const th = document.createElement("th");
-		th.scope = "col";
-
 		const text = document.createTextNode(urlParam);
-		th.appendChild(text);
 
+		th.appendChild(text);
 		tr.appendChild(th);
 	}
 
@@ -91,22 +89,12 @@ function createTableBodyFromUrlParams(urlDict)
 		const tr = document.createElement("tr");
 		tbody.appendChild(tr);
 
-		for (let col = 0; col < keys.length; col++)
+		for (const urlParam in urlDict)
 		{
-			let td = undefined;
-			if (col == 0)
-			{
-				td = document.createElement("th");
-				td.scope = "row";	
-			}
-			else
-			{
-				td = document.createElement("td");
-			}
+			const td = document.createElement("td");
+			const text = document.createTextNode(urlDict[urlParam][row]);
 
-			const text = document.createTextNode(urlDict[keys[col]][row]);
 			td.appendChild(text);
-
 			tr.appendChild(td);
 		}	
 	}
