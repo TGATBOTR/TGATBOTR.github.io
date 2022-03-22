@@ -1,14 +1,33 @@
 function getAllUrlParams() 
 {
 	const params = new URLSearchParams(window.location.search);
-	for (const [key, value] of params)
+	
+	let dict = {};
+	for (const [name, value] of params)
 	{
-		console.log(key, " = ", value);
+		let key = name.replace(/[0-9]/g, "");
+		if (dict[key] === undefined)
+		{
+			dict[key] = new Array(value);
+		}
+		else
+		{
+			dict[key].push(value);
+		}
 	}
+
+	for (const key of Object.keys(dict))
+	{
+		console.log(key + ' ' + dict[key]);
+	}
+
+	return dict;
 }
 
 function createTableFromParamters()
 {
+	let allergiesDict = getAllUrlParams();
+
 	let tableBody = document.createElement("tbody");
 	for (let rowI = 0; rowI < 2; rowI++)
 	{
