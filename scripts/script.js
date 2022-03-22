@@ -44,33 +44,74 @@ function urlDictToObjectArray(urlDict)
 function createTableFromParamters()
 {
 	const urlDict = getUrlParamsDict();
-	const urlObjs = urlDictToObjectArray(urlDict);
 
 	const table = document.createElement("table");
-	const tableBody = document.createElement("tbody");
+	table.classList = "table table-sm";
 
-	for (const obj of urlObjs)
-	{
-		const row = document.createElement("tr");
-		for (const key in obj) 
-		{
-			const cell = document.createElement("td");
-	 		const cellText = document.createTextNode(obj[key]);
+	const thead = createTableHeadFromUrlParams(urlDict);
+	table.appendChild(thead);
 
-			cell.appendChild(cellText);
-			row.appendChild(cell);
-		}
-		tableBody.appendChild(row);
-	}
-
-	table.setAttribute("border", "2");
-	table.appendChild(tableBody);
+	const tbody = createTableBodyFromUrlParams(urlDict);
+	table.appendChild(tbody);
 
 	const bodys = document.getElementsByTagName("body");
 	if (bodys.length > 0)
 	{
 		bodys[0].appendChild(table);
 	}
+}
+
+function createTableHeadFromUrlParams(urlDict)
+{
+	const thead = document.createElement("thead");
+	const tr = document.createElement("tr");
+	thead.appendChild(tr);
+
+	for (const urlParam in urlDict)
+	{
+		const th = document.createElement("th");
+		th.scope = "col";
+
+		const text = document.createTextNode(urlParam);
+		th.appendChild(text);
+
+		tr.appendChild(th);
+	}
+
+	return thead;
+}
+
+function createTableBodyFromUrlParams(urlDict)
+{
+	const tbody = document.createElement("tbody");
+
+	const keys = Object.keys(urlDict);
+	for (let row = 0; row < keys.length; row++)
+	{
+		const tr = document.createElement("tr");
+		tbody.appendChild(tr);
+
+		for (let col = 0; col < keys.length; col++)
+		{
+			let td = undefined;
+			if (col == 0)
+			{
+				td = document.createElement("th");
+				td.scope = "row";	
+			}
+			else
+			{
+				td = document.createElement("td");
+			}
+
+			const text = document.createTextNode(urlDict[keys[col]][row]);
+			td.appendChild(text);
+
+			tr.appendChild(td);
+		}	
+	}
+
+	return tbody;
 }
 
 function listAllTags()
