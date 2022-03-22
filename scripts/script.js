@@ -1,11 +1,11 @@
-function getAllUrlParams() 
+function getUrlParamsDict() 
 {
 	const params = new URLSearchParams(window.location.search);
-	
-	let dict = {};
+
+	const dict = {};
 	for (const [name, value] of params)
 	{
-		let key = name.replace(/[0-9]/g, "");
+		const key = name.replace(/[0-9]/g, "");
 		if (dict[key] === undefined)
 		{
 			dict[key] = new Array(value);
@@ -16,42 +16,61 @@ function getAllUrlParams()
 		}
 	}
 
-	for (const key of Object.keys(dict))
-	{
-		console.log(key + ' ' + dict[key]);
-	}
-
 	return dict;
+}
+
+function urlDictToObjectArray(urlDict)
+{
+	const objects = [];
+
+	const keys = Object.keys(urlDict);
+	for (let i = 0; i < keys.length; i++)
+	{
+		const object = {};
+		for (const key of keys) 
+		{
+			if (i < urlDict[key].length)
+			{
+				object[key] = urlDict[key][i];	
+			}
+		}
+
+		objects.push(object);
+	}
+	
+	return objects;
 }
 
 function createTableFromParamters()
 {
-	let allergiesDict = getAllUrlParams();
+	const urlDict = getUrlParamsDict();
+	const urlObjs = urlDictToObjectArray(urlDict);
 
-	let tableBody = document.createElement("tbody");
-	for (let rowI = 0; rowI < 2; rowI++)
+	const table = document.createElement("table");
+	const tableBody = document.createElement("tbody");
+
+	for (const obj of urlObjs)
 	{
-		let row = document.createElement("tr");
-		for (let colI = 0; colI < 2; colI++)
+		const row = document.createElement("tr");
+		for (const key in obj) 
 		{
-			let cell = document.createElement("td");
-			let cellText = document.createTextNode("col" + colI);
+			const cell = document.createElement("td");
+	 		const cellText = document.createTextNode(obj[key]);
 
 			cell.appendChild(cellText);
 			row.appendChild(cell);
 		}
-
 		tableBody.appendChild(row);
 	}
 
-	let table = document.createElement("table");
 	table.setAttribute("border", "2");
 	table.appendChild(tableBody);
 
-	console.log(document.getElementsByTagName("body").length);
-	let body = document.getElementsByTagName("body")[0];
-	console.log(body);
-	body.appendChild(table);
+	const bodys = document.getElementsByTagName("body");
+	if (bodys.length > 0)
+	{
+		bodys[0].appendChild(table);
+	}
 }
 
 function listAllTags()
