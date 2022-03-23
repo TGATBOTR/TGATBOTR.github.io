@@ -1,27 +1,6 @@
-function getUrlParamsDict() 
-{
-	const params = new URLSearchParams(window.location.search);
-
-	const dict = {};
-	for (const [name, value] of params)
-	{
-		const key = name.replace(/[0-9]/g, "");
-		if (dict[key] === undefined)
-		{
-			dict[key] = new Array(value);
-		}
-		else
-		{
-			dict[key].push(value);
-		}
-	}
-
-	return dict;
-}
 
 function createTableFromParamters()
 {
-	// const urlDict = getUrlParamsDict();
 	const params = new URLSearchParams(window.location.search);
 	let tableObj = undefined;
 
