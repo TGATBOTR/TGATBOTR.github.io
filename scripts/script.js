@@ -1,3 +1,21 @@
+const iconsFolder = "/resources/icons/";
+const allergyIconPaths = 
+[
+	"celery",
+	"cereals",
+	"crustaceans",
+	"eggs",
+	"fish",
+	"lupin",
+	"milk",
+	"molluscs",
+	"mustard",
+	"tree_nuts",
+	"peanuts",
+	"sesame",
+	"soya",
+	"sulphites",
+].map(path => iconsFolder + path + ".png");
 
 function createTableFromParamters()
 {
@@ -15,15 +33,13 @@ function createTableFromParamters()
 		}
 	}
 
-	console.log(tableObj);
-
 	const table = document.createElement("table");
 	table.classList = "table";
 
-	const thead = createTableHeadFromUrlParams(tableObj.tHeader, 1);
+	const thead = createTableHead(tableObj.tHeader, 1);
 	table.appendChild(thead);
 
-	const tbody = createTableBodyFromUrlParams(tableObj.tContent);
+	const tbody = createTableBody(tableObj.tContent);
 	table.appendChild(tbody);
 
 	const bodys = document.getElementsByTagName("body");
@@ -33,7 +49,7 @@ function createTableFromParamters()
 	}
 }
 
-function createTableHeadFromUrlParams(headers, xOffset)
+function createTableHead(headers, xOffset)
 {
 	const thead = document.createElement("thead");
 	const tr = document.createElement("tr");
@@ -58,12 +74,10 @@ function createTableHeadFromUrlParams(headers, xOffset)
 		tr.appendChild(th);
 	}
 
-	console.log(thead)
-
 	return thead;
 }
 
-function createTableBodyFromUrlParams(contents)
+function createTableBody(contents)
 {
 	const tbody = document.createElement("tbody");
 	for (const row of contents)
@@ -79,18 +93,32 @@ function createTableRowWithImage(items)
 {
 	const tr = document.createElement("tr");
 
-	const img = document.createElement("td");
-	// do stuff
-	tr.appendChild(img);
-
-	for (let i = 1; i < items.length; i++)
+	if (items.length > 0)
 	{
-		const td = document.createElement("td");
-		td.appendChild(document.createTextNode(items[i]));
-		tr.appendChild(td);
+		const img = document.createElement("img");
+		img.src = getImagePath(items[0]);
+		
+		tr.appendChild(img);
+	
+		for (let i = 1; i < items.length; i++)
+		{
+			const td = document.createElement("td");
+			td.appendChild(document.createTextNode(items[i]));
+			tr.appendChild(td);
+		}
 	}
 
 	return tr;
+}
+
+function getImagePath(allergyId)
+{
+	if (allergyId >= 0 && allergyId < allergyIconPaths.length)
+	{
+		return allergyIconPaths[allergyId];
+	}
+
+	return "";
 }
 
 function base64UrlTobase64(bString)
