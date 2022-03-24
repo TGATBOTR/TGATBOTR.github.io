@@ -43,7 +43,7 @@ function createCardsFromParameters(templateID, destinationID) {
 	let dest = document.getElementById(destinationID);
 
 
-	for (let i = 1; i < items.length; i++) {
+	for (let i = 0; i < items.length; i++) {
 		let card = createCard(titles, items[i], templateID);
 		dest.appendChild(card);
 	}
