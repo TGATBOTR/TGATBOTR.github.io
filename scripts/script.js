@@ -40,6 +40,8 @@ function createCardsFromParameters(templateID, destinationID) {
 	let items = tabelObj.tContent;
 	let titles = tabelObj.tHeader;
 
+	document.getElementById('page_title').innerHTML = titles[3] === undefined ? "View Allergies" : titles[3];
+
 	let dest = document.getElementById(destinationID);
 
 
