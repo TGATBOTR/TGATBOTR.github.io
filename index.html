@@ -38,14 +38,18 @@
 			</div>-->
 		</div>
 
+		<br>
+
 		<script type="text/template" id="card_template">
 			<div class="col">
 				<div class="card %card_style%">
+					<div class="card-header"><h5 class="card-title">%allergy_name%</h5></div>
 					<div class="row g-0">
 						
-						<div class="col-9">
+						<div class="%class_card_body%">
+							
 							<div class="card-body">
-								<h5 class="card-title">%allergy_name%</h5>
+								
 									<table class="card-table table table-borderless table-sm">
 										<tr>
 											<td style="width: 35%"><strong>%title_severity%</strong></td>
@@ -60,7 +64,7 @@
 							
 							
 						</div>
-						<div class="col-3 d-flex align-items-center justify-content-center">
+						<div class="%class_icon% d-flex align-items-center justify-content-center">
 							<img src="%allergy_icon%" class="img-fluid rounded-start">
 						</div>
 					</div>

@@ -57,12 +57,12 @@ function createCard(titles, data, tempateID) {
 
 	let img = getImagePath(data[0]);
 
-	let card_style = ""
+	let card_style = "border-dark border-2"
 
 	if (data[2] > 6) {
-		card_style = "border-danger border-3";
+		card_style = "border-danger border-2";
 	} else if (data[2] > 4) {
-		card_style = "border-warning border-3";
+		card_style = "border-warning border-2";
 	}
 
 	replacements = {
@@ -72,7 +72,9 @@ function createCard(titles, data, tempateID) {
 		"%allergy_icon%": img,
 		"%title_severity%": titles[1],
 		"%title_symptoms%": titles[2],
-		"%card_style%": card_style
+		"%card_style%": card_style,
+		"%class_card_body%": data[0] == "-1" ? "col-12" : "col-9",
+		"%class_icon%": data[0] == "-1" ? "d-none" : "col-3"
 	}
 
 	// Do replacements here
