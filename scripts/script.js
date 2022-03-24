@@ -58,9 +58,9 @@ function createCard(titles, data, tempateID) {
 	let card_style = ""
 
 	if (data[2] > 6) {
-		card_style = "border-danger";
+		card_style = "border-danger border-3";
 	} else if (data[2] > 4) {
-		card_style = "border-warning";
+		card_style = "border-warning border-3";
 	}
 
 	replacements = {
