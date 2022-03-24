@@ -21,16 +21,53 @@
 
 		<div class="container-fluid">
 
-			<div class="card mt-4">
+			<h2 class="mt-4">View Allergies</h2>
+
+			<div class="row row-cols-1 row-cols-md-2 g-4 mt-1" id="cards_dest">
+
+			</div>
+
+
+			<!--<div class="card mt-4">
 				<div class="card-header">
 					Allergies Viewer
 				</div>
 				<div class="card-body" id="table_dest">
 
 				</div>
-			</div>
+			</div>-->
 		</div>
 
-		<script>createTableFromParamters()</script>
+		<script type="text/template" id="card_template">
+			<div class="col">
+				<div class="card %card_style%">
+					<div class="row g-0">
+						
+						<div class="col-9">
+							<div class="card-body">
+								<h5 class="card-title">%allergy_name%</h5>
+									<table class="card-table table table-borderless table-sm">
+										<tr>
+											<td style="width: 35%"><strong>%title_severity%</strong></td>
+											<td>%allergy_severity% / 10</td>
+										</tr>
+										<tr>
+											<td><strong>%title_symptoms%</strong></td>
+											<td>%allergy_symptoms%</td>
+										</tr>
+									</table>
+								</div>
+							
+							
+						</div>
+						<div class="col-3 d-flex align-items-center justify-content-center">
+							<img src="%allergy_icon%" class="img-fluid rounded-start">
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
+
+		<script>createCardsFromParameters("card_template", "cards_dest")</script>
 	</body>
 </html>

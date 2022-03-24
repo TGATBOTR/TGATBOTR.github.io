@@ -1,4 +1,4 @@
-const iconsFolder = "/resources/icons/";
+const iconsFolder = "resources/icons/";
 const allergyIconPaths =
 	[
 		"celery",
@@ -17,7 +17,7 @@ const allergyIconPaths =
 		"sulphites",
 	].map(path => iconsFolder + path + ".png");
 
-function createTableFromParamters() {
+function getParameters() {
 	const params = new URLSearchParams(window.location.search);
 	let tableObj = undefined;
 
@@ -29,6 +29,66 @@ function createTableFromParamters() {
 			break;
 		}
 	}
+
+	return tableObj;
+}
+
+
+function createCardsFromParameters(templateID, destinationID) {
+	let tabelObj = getParameters();
+
+	let items = tabelObj.tContent;
+	let titles = tabelObj.tHeader;
+
+	let dest = document.getElementById(destinationID);
+
+
+	for (let i = 1; i < items.length; i++) {
+		let card = createCard(titles, items[i], templateID);
+		dest.appendChild(card);
+	}
+
+}
+
+function createCard(titles, data, tempateID) {
+	let template = document.getElementById(tempateID).innerHTML;
+
+	let img = getImagePath(data[0]);
+
+	let card_style = ""
+
+	if (data[2] > 6) {
+		card_style = "border-danger";
+	} else if (data[2] > 4) {
+		card_style = "border-warning";
+	}
+
+	replacements = {
+		"%allergy_name%": data[1],
+		"%allergy_severity%": data[2],
+		"%allergy_symptoms%": data[3],
+		"%allergy_icon%": img,
+		"%title_severity%": titles[1],
+		"%title_symptoms%": titles[2],
+		"%card_style%": card_style
+	}
+
+	// Do replacements here
+	for (let [key, value] of Object.entries(replacements)) {
+		template = template.replaceAll(key, value);
+	}
+
+	const card = document.createElement("div");
+	card.innerHTML = template
+
+	return card
+}
+
+
+
+function createTableFromParamters() {
+
+	let tableObj = getParameters();
 
 	const table = document.createElement("table");
 	table.classList = "table";
