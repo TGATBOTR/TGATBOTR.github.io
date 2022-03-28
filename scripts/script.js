@@ -23,9 +23,9 @@ function getParameters() {
 
 	for (const [name, value] of params) {
 		if (name == "data") {
-			const b64String = base64UrlTobase64(value);
-			const jsonString = atob(b64String);
-			tableObj = JSON.parse(jsonString);
+			//const b64String = base64UrlTobase64(value);
+			//const jsonString = atob(b64String);
+			tableObj = JSON.parse(base64DecodeUnicode(value));
 			break;
 		}
 	}
@@ -192,4 +192,14 @@ function base64UrlTobase64(bString) { // See https://stackoverflow.com/questions
 	}
 
 	return bString;
+}
+
+function base64DecodeUnicode(str) {
+    // Convert Base64 encoded bytes to percent-encoding, and then get the original string.
+    percentEncodedStr = atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join('');
+
+
+    return decodeURIComponent(percentEncodedStr);
 }
