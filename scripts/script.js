@@ -25,7 +25,7 @@ function getParameters() {
 		if (name == "data") {
 			//const b64String = base64UrlTobase64(value);
 			//const jsonString = atob(b64String);
-			tableObj = JSON.parse(base64DecodeUnicode(value));
+			tableObj = JSON.parse(base64DecodeUnicode(base64UrlTobase64(value)));
 			break;
 		}
 	}
