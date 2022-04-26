@@ -122,9 +122,9 @@ function createTableHead(headers, xOffset) {
 		}
 	}
 
-	for (const header of headers) {
+	for (let i = 0; i < headers.length - 1; i++) {
 		const th = document.createElement("th");
-		const text = document.createTextNode(header);
+		const text = document.createTextNode(headers[i]);
 
 		th.appendChild(text);
 		tr.appendChild(th);
