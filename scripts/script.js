@@ -97,7 +97,7 @@ function createTableFromParamters() {
 	const table = document.createElement("table");
 	table.classList = "table";
 
-	const thead = createTableHead(tableObj.tHeader, 1);
+	const thead = createTableHead(tableObj.tHeader, 0);
 	table.appendChild(thead);
 
 	const tbody = createTableBody(tableObj.tContent);
@@ -136,11 +136,30 @@ function createTableHead(headers, xOffset) {
 function createTableBody(contents) {
 	const tbody = document.createElement("tbody");
 	for (const row of contents) {
-		const tr = createTableRowWithImage(row);
+		const tr = createTableRow(row);
 		tbody.appendChild(tr);
 	}
 
 	return tbody;
+}
+
+function createTableRow(items) {
+	const tr = document.createElement("tr");
+
+	for (let i = 1; i < items.length; i++) {
+		const td = document.createElement("td");
+
+		let output = "";
+
+		if (items[i] != "null") {
+			output = items[i];
+		}
+
+		td.appendChild(document.createTextNode(output));
+		tr.appendChild(td);
+	}
+
+	return tr;
 }
 
 function createTableRowWithImage(items) {
